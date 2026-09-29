@@ -223,7 +223,7 @@
     shareBtn.addEventListener("click", function () {
       var shareData = {
         title: "Pratik ♥ Rutuja — Wedding Invitation",
-        text: "Board the flight to forever with Pratik & Rutuja — 7 to 10 December 2026, Green Paradise, Arnala. #PRARU",
+        text: "Board the flight to forever with Pratik & Rutuja — 9 to 10 December 2026, Green Paradise, Arnala. #PRARU",
         url: window.location.href,
       };
       if (navigator.share) {
@@ -417,20 +417,20 @@
     {
       e: "👀",
       t: "First Glance",
-      d: "A chance meeting at a friend's birthday. Eyes met across the room, and the universe quietly smiled and booked two seats together.",
-      x: "The beginning · 2022",
+      d: "Ruru's Diploma Farewell Party. Eyes met across the room, and the universe quietly smiled and booked two seats together.",
+      x: "The beginning · 2018",
     },
     {
       e: "💬",
       t: "First Hello",
       d: "One 'hi' turned into a three-hour conversation. The phone battery died, but something else came alive.",
-      x: "The takeoff · 2023",
+      x: "The takeoff · 2018",
     },
     {
       e: "💍",
       t: "The Proposal",
-      d: "Under a string of fairy lights, with a trembling hand, a wobbly voice and a teary 'yes' — the flight to forever was officially booked.",
-      x: "Final call · 2025",
+      d: "Under a string of fairy lights, with a trembling hand, a wobbly voice and a teary 'yes' and the tongue cheekily coming out — the flight to forever was officially booked.",
+      x: "Final call · 2022",
     },
     {
       e: "🛫",
