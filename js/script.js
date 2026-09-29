@@ -118,7 +118,7 @@
       var petal = document.createElement("span");
       petal.className = "petal";
       var size = 8 + Math.random() * 8;
-      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.left = Math.random() * 100 + "%";
       petal.style.width = size + "px";
       petal.style.height = size + "px";
       petal.style.animationDuration = 7 + Math.random() * 8 + "s";
@@ -192,8 +192,8 @@
       var s = document.createElement("span");
       s.className = "sparkle";
       s.textContent = Math.random() > 0.5 ? "✦" : "✧";
-      s.style.left = Math.random() * 100 + "vw";
-      s.style.top = Math.random() * 100 + "vh";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 100 + "%";
       s.style.fontSize = 8 + Math.random() * 12 + "px";
       s.style.animationDuration = 2 + Math.random() * 2 + "s";
       sparkleHost.appendChild(s);

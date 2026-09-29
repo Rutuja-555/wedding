@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -275,6 +276,7 @@ svg {
   position: relative;
   z-index: 1;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1034,17 +1036,21 @@ svg {
   .passport-cover {
     padding: 28px 20px;
   }
-  .pp-stamp-1 {
-    right: 14px;
-    top: 14px;
-    width: 78px;
-    height: 78px;
+  .pp-photo {
+    float: none;
+    width: 112px;
+    margin: 0 auto 18px;
   }
-  .pp-stamp-2 {
-    right: 10px;
-    bottom: 70px;
-    width: 88px;
-    height: 88px;
+  .pp-fields {
+    gap: 10px;
+  }
+  .pp-stamp {
+    position: static;
+    margin: 26px auto 0;
+  }
+  .pp-stamp-1 {
+    width: 92px;
+    height: 92px;
   }
 
   .form-row {
@@ -1153,11 +1159,11 @@ svg {
     display: none;
   }
 
-  /* Event cards: calendar button flows after stamp */
+  /* Event cards: stamp sits top-right of stub row, calendar flows below */
   .ec-cal {
     position: static;
     align-self: flex-end;
-    margin-top: 8px;
+    margin-top: 10px;
   }
   .event-card {
     flex-direction: column;
@@ -1166,7 +1172,7 @@ svg {
   .ec-stub {
     border-right: none;
     border-bottom: 1px dashed #e3d6c4;
-    padding: 0 0 10px;
+    padding: 0 104px 12px 0;
     width: 100%;
     text-align: left;
     display: flex;
@@ -1177,9 +1183,13 @@ svg {
     margin-bottom: 0;
   }
   .ec-stamp {
-    position: static;
-    align-self: flex-end;
-    margin-top: 8px;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    font-size: 0.52rem;
+    letter-spacing: 1.2px;
+    padding: 4px 9px;
+    transform: rotate(6deg);
   }
 }
 
@@ -1363,6 +1373,7 @@ svg {
 body.intro-lock {
   overflow: hidden;
   height: 100vh;
+  height: 100dvh;
 }
 .intro {
   position: fixed;
