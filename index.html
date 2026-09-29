@@ -147,8 +147,17 @@
       <a href="#hero" class="nav-logo"
         ><img src="rp_logo.png" alt="Pratik & Rutuja" class="logo-img"
       /></a>
-      <ul class="nav-links">
-        <li><a href="#couple">Couple</a></li>
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#couple">Story</a></li>
         <li><a href="#itinerary">Itinerary</a></li>
         <li><a href="#passport">Passport</a></li>
       </ul>
@@ -262,17 +271,17 @@
     <!-- ══════════ COUPLE — Ghibli illustration ══════════ -->
     <section class="section couple" id="couple">
       <h2 class="section-title reveal">
-        <span class="script">Two souls,</span> one journey
+        <span class="script">Our</span> story
       </h2>
       <p class="section-sub reveal">
-        Like a Studio Ghibli daydream — soft skies, gentle winds, and two hearts
-        walking the same path.
+        A Ghibli daydream you can play with — tap the sun to set it, tap the
+        couple to shower them with love, and don't miss the cat. 🐈
       </p>
 
       <div
         class="ghibli-scene reveal"
-        role="img"
-        aria-label="Ghibli-style illustration of the bride and groom standing on a green hill under a soft sky"
+        id="storyScene"
+        aria-label="Interactive Ghibli-style illustration of the bride and groom on a green hill"
       >
         <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -298,7 +307,7 @@
           <!-- sky -->
           <rect width="640" height="400" fill="url(#sky)" />
           <circle cx="520" cy="80" r="90" fill="url(#sunGlow)" />
-          <circle cx="520" cy="80" r="34" fill="#ffe9a8" />
+          <circle id="sunG" class="tap" cx="520" cy="80" r="34" fill="#ffe9a8" />
 
           <!-- clouds -->
           <g fill="#ffffff" opacity="0.95">
@@ -355,7 +364,7 @@
           </g>
 
           <!-- ══ GROOM ══ -->
-          <g id="groom" transform="translate(258 176)">
+          <g id="groom" class="tap" transform="translate(258 176)">
             <!-- shadow -->
             <ellipse cx="30" cy="186" rx="34" ry="7" fill="#00000018" />
             <!-- sherwani -->
@@ -423,7 +432,7 @@
           </g>
 
           <!-- ══ BRIDE ══ -->
-          <g id="bride" transform="translate(330 176)">
+          <g id="bride" class="tap" transform="translate(330 176)">
             <ellipse cx="34" cy="186" rx="36" ry="7" fill="#00000018" />
             <!-- saree -->
             <path
@@ -566,7 +575,7 @@
           </g>
 
           <!-- little cat (Ghibli nod) -->
-          <g transform="translate(452 300)">
+          <g id="catG" class="tap" transform="translate(452 300)">
             <ellipse cx="0" cy="18" rx="14" ry="4" fill="#00000015" />
             <path d="M-10 18 Q-12 4 0 4 Q12 4 10 18 Z" fill="#6b6258" />
             <circle cx="0" cy="2" r="7" fill="#6b6258" />
@@ -622,7 +631,131 @@
               opacity="0.5"
             />
           </g>
+
+          <!-- night overlay + moon (toggled by tapping the sun) -->
+          <rect
+            id="nightOverlay"
+            width="640"
+            height="400"
+            fill="#1b2a52"
+            opacity="0"
+            style="pointer-events: none; transition: opacity 1.1s ease"
+          />
+          <g
+            id="nightG"
+            opacity="0"
+            style="pointer-events: none; transition: opacity 1.1s ease"
+          >
+            <circle cx="120" cy="70" r="26" fill="#f7f3d8" />
+            <circle cx="130" cy="62" r="22" fill="#cfeaf5" opacity="0.35" />
+            <circle cx="60" cy="40" r="2" fill="#fff" />
+            <circle cx="200" cy="30" r="1.6" fill="#fff" />
+            <circle cx="260" cy="60" r="2" fill="#fff" />
+            <circle cx="330" cy="36" r="1.6" fill="#fff" />
+            <circle cx="420" cy="50" r="2" fill="#fff" />
+            <circle cx="500" cy="30" r="1.6" fill="#fff" />
+          </g>
+
+          <!-- cat speech bubble -->
+          <g
+            id="catBubble"
+            opacity="0"
+            style="pointer-events: none; transition: opacity 0.4s ease"
+          >
+            <rect
+              x="368"
+              y="248"
+              width="176"
+              height="36"
+              rx="18"
+              fill="#fff"
+              stroke="#d9c8b2"
+              stroke-width="1.5"
+            />
+            <path d="M452 284 l6 10 8 -10z" fill="#fff" stroke="#d9c8b2" />
+            <text
+              x="456"
+              y="271"
+              text-anchor="middle"
+              font-size="13"
+              font-family="Caveat, cursive"
+              fill="#7b2d3b"
+            >
+              Meow! Best wishes, you two 🐾
+            </text>
+          </g>
         </svg>
+      </div>
+      <p class="scene-hint reveal">
+        ☀️ Tap the sun for night · 💞 Tap the couple · 🐈 Tap the cat
+      </p>
+
+      <!-- ══ Story flight map ══ -->
+      <div class="story-map reveal">
+        <div class="story-stops" role="tablist" aria-label="Our story">
+          <button class="stop active" data-story="0" type="button">
+            <span class="stop-no">1</span> First Glance
+          </button>
+          <span class="stop-line" aria-hidden="true"></span>
+          <button class="stop" data-story="1" type="button">
+            <span class="stop-no">2</span> First Hello
+          </button>
+          <span class="stop-line" aria-hidden="true"></span>
+          <button class="stop" data-story="2" type="button">
+            <span class="stop-no">3</span> The Proposal
+          </button>
+          <span class="stop-line" aria-hidden="true"></span>
+          <button class="stop" data-story="3" type="button">
+            <span class="stop-no">4</span> Forever
+          </button>
+        </div>
+        <div class="story-card" id="storyCard" aria-live="polite"></div>
+      </div>
+
+      <!-- ══ Did you know? flip cards ══ -->
+      <h3 class="flip-heading reveal"><span class="script">Did you</span> know?</h3>
+      <div class="flip-grid reveal">
+        <div class="flip-card" tabindex="0" role="button" aria-label="About the groom — tap to flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="flip-emoji">🌿</span>
+              <b>The Groom</b>
+              <small>tap to decode</small>
+            </div>
+            <div class="flip-face flip-back">
+              Loves morning runs, biryani and one particular girl. Superpower:
+              making Rutuja laugh on her worst days. Weakness: her "5 more
+              minutes".
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-label="About the bride — tap to flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="flip-emoji">🌸</span>
+              <b>The Bride</b>
+              <small>tap to decode</small>
+            </div>
+            <div class="flip-face flip-back">
+              Loves Ghibli movies, chai and long drives. Superpower: turning
+              every occasion into a celebration. Weakness: Pratik's jokes (she
+              pretends not to laugh… she does).
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-label="Their story — tap to flip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="flip-emoji">💘</span>
+              <b>Their Story</b>
+              <small>tap to decode</small>
+            </div>
+            <div class="flip-face flip-back">
+              First trip: Lonavala. Signature dance song: played at every
+              sangeet. Future destination: forever — non-stop, no layovers.
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="couple-cards">

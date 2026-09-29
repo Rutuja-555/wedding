@@ -58,6 +58,32 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  /* ─────────── Mobile nav toggle ─────────── */
+  var navToggle = document.getElementById("navToggle");
+  var navLinks = document.getElementById("navLinks");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = navLinks.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navToggle.textContent = open ? "✕" : "☰";
+    });
+    navLinks.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") {
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.textContent = "☰";
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!navLinks.contains(e.target) && e.target !== navToggle) {
+        navLinks.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.textContent = "☰";
+      }
+    });
+  }
+
   /* ─────────── Scroll reveal ─────────── */
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
@@ -340,5 +366,120 @@
       toast("Added to calendar — see you there! 📅");
     });
     card.appendChild(btn);
+  });
+
+  /* ─────────── Interactive story scene ─────────── */
+  var scene = document.getElementById("storyScene");
+  if (scene) {
+    var sun = scene.querySelector("#sunG");
+    if (sun) {
+      sun.addEventListener("click", function () {
+        var night = scene.classList.toggle("night");
+        toast(night ? "Goodnight from Prats and Ruru 🌙" : "Sunrise over the hills ☀️");
+      });
+    }
+    var cat = scene.querySelector("#catG");
+    var bubble = scene.querySelector("#catBubble");
+    var bubbleTimer;
+    if (cat && bubble) {
+      cat.addEventListener("click", function () {
+        bubble.setAttribute("opacity", "1");
+        clearTimeout(bubbleTimer);
+        bubbleTimer = setTimeout(function () {
+          bubble.setAttribute("opacity", "0");
+        }, 2600);
+      });
+    }
+    ["#groom", "#bride"].forEach(function (sel) {
+      var fig = scene.querySelector(sel);
+      if (fig) fig.addEventListener("click", function () {
+        for (var i = 0; i < 7; i++) {
+          (function (n) {
+            setTimeout(function () {
+              var h = document.createElement("span");
+              h.className = "heart-pop";
+              h.textContent = ["❤", "💞", "💛", "✨"][n % 4];
+              h.style.left = 38 + Math.random() * 24 + "%";
+              h.style.top = 40 + Math.random() * 20 + "%";
+              scene.appendChild(h);
+              h.addEventListener("animationend", function () {
+                h.remove();
+              });
+            }, n * 90);
+          })(i);
+        }
+      });
+    });
+  }
+
+  /* ─────────── Story flight map ─────────── */
+  var STORIES = [
+    {
+      e: "👀",
+      t: "First Glance",
+      d: "A chance meeting at a friend's birthday. Eyes met across the room, and the universe quietly smiled and booked two seats together.",
+      x: "The beginning · 2022",
+    },
+    {
+      e: "💬",
+      t: "First Hello",
+      d: "One 'hi' turned into a three-hour conversation. The phone battery died, but something else came alive.",
+      x: "The takeoff · 2023",
+    },
+    {
+      e: "💍",
+      t: "The Proposal",
+      d: "Under a string of fairy lights, with a trembling hand, a wobbly voice and a teary 'yes' — the flight to forever was officially booked.",
+      x: "Final call · 2025",
+    },
+    {
+      e: "🛫",
+      t: "Forever",
+      d: "Two families, one date — 10 December 2026. The next chapter begins, and you are all invited aboard.",
+      x: "Departure · Dec 2026",
+    },
+  ];
+  var storyCard = document.getElementById("storyCard");
+  var stopBtns = document.querySelectorAll(".stop");
+  function showStory(idx) {
+    if (!storyCard) return;
+    var s = STORIES[idx];
+    storyCard.classList.add("fading");
+    setTimeout(function () {
+      storyCard.innerHTML =
+        '<h4><span class="story-emoji">' +
+        s.e +
+        "</span>" +
+        s.t +
+        "</h4><p>" +
+        s.d +
+        '</p><span class="story-date">' +
+        s.x +
+        "</span>";
+      storyCard.classList.remove("fading");
+    }, 200);
+  }
+  stopBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      stopBtns.forEach(function (b) {
+        b.classList.remove("active");
+      });
+      btn.classList.add("active");
+      showStory(parseInt(btn.dataset.story, 10) || 0);
+    });
+  });
+  showStory(0);
+
+  /* ─────────── Flip cards ─────────── */
+  document.querySelectorAll(".flip-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      card.classList.toggle("flipped");
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        card.classList.toggle("flipped");
+      }
+    });
   });
 })();

@@ -233,6 +233,20 @@ svg {
   list-style: none;
   align-items: center;
 }
+.nav-toggle {
+  display: none;
+  background: var(--paper);
+  border: 1.5px solid #e3d6c4;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  color: var(--maroon);
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(61, 55, 51, 0.1);
+}
 .nav-links a {
   text-decoration: none;
   color: var(--ink);
@@ -1036,11 +1050,114 @@ svg {
   .form-row {
     grid-template-columns: 1fr;
   }
-  .nav-links {
-    gap: 12px;
+
+  /* Mobile nav — hamburger dropdown */
+  .nav-toggle {
+    display: inline-flex;
   }
-  .nav-links a:not(.nav-cta) {
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    background: rgba(255, 253, 248, 0.97);
+    backdrop-filter: blur(10px);
+    border: 1px solid #efe4d4;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(61, 55, 51, 0.18);
+    padding: 12px 22px;
     display: none;
+    min-width: 170px;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-links a {
+    display: block;
+    padding: 10px 0;
+    font-size: 0.82rem;
+  }
+
+  /* Hero & countdown */
+  .hero {
+    padding: 104px 14px 56px;
+  }
+  .cd-box {
+    min-width: 68px;
+    padding: 10px 12px;
+  }
+  .hero-actions .btn {
+    padding: 12px 24px;
+    font-size: 0.82rem;
+  }
+
+  /* Sections */
+  .section {
+    padding: 64px 14px;
+  }
+  .section-sub {
+    margin-bottom: 34px;
+  }
+  .ghibli-scene {
+    border-width: 4px;
+    border-radius: 18px;
+  }
+  .scene-hint {
+    font-size: 1.02rem;
+    margin-bottom: 30px;
+  }
+
+  /* Story map */
+  .story-stops {
+    gap: 6px;
+  }
+  .stop {
+    padding: 8px 12px;
+    font-size: 0.7rem;
+  }
+  .stop-line {
+    display: none;
+  }
+  .story-card {
+    padding: 22px 20px;
+  }
+  .story-card h4 {
+    font-size: 1.1rem;
+  }
+
+  /* Flip cards */
+  .flip-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 44px;
+  }
+  .flip-card {
+    height: 190px;
+  }
+
+  /* Passport */
+  .pp-fields span {
+    width: 88px;
+    font-size: 0.52rem;
+  }
+  .pp-fields b {
+    font-size: 0.7rem;
+  }
+  .pp-mrz {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+  .pp-stamp-2 {
+    display: none;
+  }
+
+  /* Event cards: calendar button flows after stamp */
+  .ec-cal {
+    position: static;
+    align-self: flex-end;
+    margin-top: 8px;
   }
   .event-card {
     flex-direction: column;
@@ -1993,6 +2110,228 @@ body.intro-lock {
   100% {
     stroke-dashoffset: 0;
   }
+}
+
+/* ─────────── Interactive story section ─────────── */
+.ghibli-scene {
+  position: relative;
+}
+.tap {
+  cursor: pointer;
+}
+.tap:hover {
+  filter: brightness(1.08);
+}
+.ghibli-scene.night #nightOverlay {
+  opacity: 0.45;
+}
+.ghibli-scene.night #nightG {
+  opacity: 1;
+}
+.ghibli-scene.night .firefly {
+  animation-duration: 1.2s;
+}
+.scene-hint {
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  color: var(--rose);
+  margin: 14px 0 40px;
+}
+.heart-pop {
+  position: absolute;
+  font-size: 1.3rem;
+  pointer-events: none;
+  animation: heartUp 1.3s ease-out forwards;
+  z-index: 5;
+}
+@keyframes heartUp {
+  0% {
+    transform: translateY(0) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-14px) scale(1.1);
+  }
+  100% {
+    transform: translateY(-90px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Story flight map */
+.story-map {
+  max-width: 760px;
+  margin: 0 auto 56px;
+}
+.story-stops {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.stop {
+  background: var(--paper);
+  border: 1.5px solid #e3d6c4;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+.stop:hover {
+  border-color: var(--gold);
+  color: var(--maroon);
+  transform: translateY(-2px);
+}
+.stop.active {
+  background: linear-gradient(135deg, var(--maroon), var(--rose));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(123, 45, 59, 0.3);
+}
+.stop-no {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.18);
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+.stop.active .stop-no {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.stop-line {
+  width: 26px;
+  border-top: 2px dashed #d9c8b2;
+}
+.story-card {
+  background: var(--paper);
+  border: 1px solid #efe4d4;
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px rgba(61, 55, 51, 0.08);
+  padding: 30px 34px;
+  text-align: left;
+  min-height: 120px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.story-card.fading {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.story-card h4 {
+  font-family: var(--font-serif);
+  color: var(--maroon);
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+.story-card .story-emoji {
+  font-size: 1.6rem;
+  margin-right: 8px;
+}
+.story-card p {
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+.story-card .story-date {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.68rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Flip cards */
+.flip-heading {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--maroon);
+  margin-bottom: 22px;
+}
+.flip-heading .script {
+  color: var(--gold);
+  font-size: 1.25em;
+}
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 860px;
+  margin: 0 auto 60px;
+}
+.flip-card {
+  perspective: 1000px;
+  height: 210px;
+  cursor: pointer;
+  outline: none;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner,
+.flip-card:focus-visible .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  box-shadow: 0 12px 28px rgba(61, 55, 51, 0.1);
+}
+.flip-front {
+  background: linear-gradient(160deg, #fffdf8, #fdf1e0);
+  border: 1.5px solid #efe4d4;
+}
+.flip-front:hover {
+  border-color: var(--gold);
+}
+.flip-emoji {
+  font-size: 2.4rem;
+}
+.flip-front b {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--maroon);
+}
+.flip-front small {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--rose);
+}
+.flip-back {
+  background: linear-gradient(135deg, var(--maroon), var(--rose));
+  color: #fff;
+  transform: rotateY(180deg);
+  font-size: 0.86rem;
+  line-height: 1.65;
+  text-align: center;
 }
 
 /* ─────────── Reduced motion ─────────── */
