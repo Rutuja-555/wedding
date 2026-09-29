@@ -71,10 +71,12 @@ svg {
 
 .cloud {
   position: absolute;
+  left: 0;
   background: rgba(255, 255, 255, 0.75);
   border-radius: 100px;
   filter: blur(2px);
   animation: drift linear infinite;
+  will-change: transform;
 }
 .cloud::before,
 .cloud::after {
@@ -164,10 +166,10 @@ svg {
 
 @keyframes drift {
   from {
-    left: -220px;
+    transform: translateX(-240px);
   }
   to {
-    left: 110%;
+    transform: translateX(110vw);
   }
 }
 
@@ -1191,6 +1193,31 @@ svg {
     padding: 4px 9px;
     transform: rotate(6deg);
   }
+
+  /* Perf: GPU-heavy blur causes scroll jitter/shaking on mobile */
+  .boarding-pass,
+  .nav.scrolled,
+  .btn-ghost,
+  .nav-links {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .boarding-pass {
+    background: var(--paper);
+  }
+  .nav.scrolled {
+    background: rgba(253, 248, 241, 0.98);
+  }
+  .nav-links {
+    background: rgba(255, 253, 248, 0.99);
+  }
+  .cloud {
+    filter: none;
+  }
+  .aurora {
+    filter: blur(40px);
+    opacity: 0.3;
+  }
 }
 
 /* ─────────── Logo ─────────── */
@@ -1244,6 +1271,8 @@ svg {
 }
 .fly-plane {
   position: absolute;
+  left: 0;
+  will-change: transform;
   animation: flyAcross linear infinite;
 }
 .plane-inner {
@@ -1293,10 +1322,10 @@ svg {
 
 @keyframes flyAcross {
   from {
-    left: -140px;
+    transform: translateX(-160px);
   }
   to {
-    left: 110%;
+    transform: translateX(110vw);
   }
 }
 @keyframes planeRoam {
